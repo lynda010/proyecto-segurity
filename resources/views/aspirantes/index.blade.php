@@ -2,11 +2,10 @@
 
 @section('title')
 Administrar Aspirantes
-        
 @endsection
 
 @section('titleContent')
-        <h1>Administrar Aspirantes</h1>
+    <h1>Administrar Aspirantes</h1>
 @endsection
 
 @section('Content')
@@ -49,6 +48,7 @@ Administrar Aspirantes
     </table>
     {{ $aspirantes->links() }}
 
-
+    <!-- Botón Volver -->
+    <a href="{{ route('welcome') }}" class="btn btn-secondary mt-3">⬅ Volver</a>
 </div>
 @endsection

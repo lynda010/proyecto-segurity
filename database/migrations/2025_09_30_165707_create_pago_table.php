@@ -14,16 +14,21 @@ return new class extends Migration
     Schema::create('pago', function (Blueprint $table){
         $table->id();
         $table->unsignedBigInteger('matricula_id');
+        $table->unsignedBigInteger('aspirante_id');
+        $table->unsignedBigInteger('curso_id');
         $table->decimal('monto', 10, 2);
         $table->dateTime('fecha_pago')->useCurrent();
         $table->string('metodo_pago')->nullable();
-        $table->string('referencia')->nullable();
         $table->string('estado_pago')->default('completado');
-
-        $table->foreign('matricula_id')->references('id')->on('matriculas')->onDelete('cascade');
         $table->timestamps();
+
+        // Relaciones
+        $table->foreign('matricula_id')->references('id')->on('matriculas')->onDelete('cascade');
+        $table->foreign('aspirante_id')->references('id')->on('aspirantes')->onDelete('cascade');
+        $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
     });
 }
+
 
     /**
      * Reverse the migrations.

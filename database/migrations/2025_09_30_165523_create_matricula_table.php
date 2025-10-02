@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+   public function up(): void
 {
     Schema::create('matricula', function (Blueprint $table){
         $table->id();
@@ -17,13 +17,14 @@ return new class extends Migration
         $table->unsignedBigInteger('curso_id');
         $table->dateTime('fecha_matricula')->useCurrent();
         $table->string('estado')->default('inscrito');
-        $table->decimal('nota_final', 5, 2)->nullable();
-
-        $table->foreign('aspirante_id')->references('id')->on('aspirantes');
-        $table->foreign('curso_id')->references('id')->on('cursos');
         $table->timestamps();
+
+        // Relaciones
+        $table->foreign('aspirante_id')->references('id')->on('aspirantes')->onDelete('cascade');
+        $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
     });
 }
+
 
     /**
      * Reverse the migrations.
