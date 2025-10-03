@@ -4,13 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class curso extends Model
+class instructor extends Model
 {
-    protected $table = 'curso';
-    protected $fillable = ['nombre', 'descripcion', 'duracion', 'instructor_id'];
+    // Definimos la tabla en singular para mantener el mismo formato
+    protected $table = 'instructor';
 
-    public function instructor()
+    protected $fillable = [
+        'nombre',
+        'apellido',
+        'documento',
+        'telefono',
+        'email',
+        'especialidad',
+    ];
+
+    public function cursos()
     {
-        return $this->belongsTo(instructor::class, 'instructor_id');
+        return $this->hasMany(curso::class, 'instructor_id');
     }
 }

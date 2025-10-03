@@ -15,20 +15,21 @@ Route::get('/welcome',[generalController::class,'welcome'])->name('welcome');
 
 
 //rutas aspirantes
-Route::get('/aspirantes/index',[aspiranteController::class,'index'])->name('aspirantes.index');
-Route::get('/aspirantes/create',[aspiranteController::class,'create'])->name('aspirantes.create');
-Route::post('/aspirantes/store',[aspiranteController::class,'store'])->name('aspirantes.store');
-Route::get('/aspirantes/edit/{id}',[aspiranteController::class,'edit'])->name('aspirantes.edit');
-Route::post('/aspirantes/update/{id}',[aspiranteController::class,'update'])->name('aspirantes.update');
-Route::post('/aspirantes/destroy/{id}',[aspiranteController::class,'destroy'])->name('aspirantes.destroy');
+Route::get('/aspirantes/index',[AspiranteController::class,'index'])->name('aspirantes.index');
+Route::get('/aspirantes/create',[AspiranteController::class,'create'])->name('aspirantes.create');
+Route::post('/aspirantes/store',[AspiranteController::class,'store'])->name('aspirantes.store');
+Route::get('/aspirantes/edit/{id}',[AspiranteController::class,'edit'])->name('aspirantes.edit');
+Route::post('/aspirantes/update/{id}',[AspiranteController::class,'update'])->name('aspirantes.update');
+Route::post('/aspirantes/destroy/{id}',[AspiranteController::class,'destroy'])->name('aspirantes.destroy');
 
 //rutas instructor
-Route::get('/instructores/index',[InstructorController::class,'index'])->name('instructores.index');
-Route::get('/instructores/create',[InstructorController::class,'create'])->name('instructores.create');
-Route::post('/instructores/store',[InstructorController::class,'store'])->name('instructores.store');
-Route::get('/instructores/edit/{id}',[InstructorController::class,'edit'])->name('instructores.edit');
-Route::post('/instructores/update/{id}',[InstructorController::class,'update'])->name('instructores.update');
-Route::post('/instructores/destroy/{id}',[InstructorController::class,'destroy'])->name('instructores.destroy');
+// CRUD Instructores
+Route::get('/instructores', [InstructorController::class, 'index'])->name('instructores.index');
+Route::get('/instructores/create', [InstructorController::class, 'create'])->name('instructores.create');
+Route::post('/instructores/store', [InstructorController::class, 'store'])->name('instructores.store');
+Route::get('/instructores/{id}/edit', [InstructorController::class, 'edit'])->name('instructores.edit');
+Route::post('/instructores/{id}/update', [InstructorController::class, 'update'])->name('instructores.update');
+Route::post('/instructores/{id}/destroy', [InstructorController::class, 'destroy'])->name('instructores.destroy');
 
 //rutas curso
 Route::get('/cursos/index',[cursoController::class,'index'])->name('cursos.index');

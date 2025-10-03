@@ -49,6 +49,6 @@ Administrar Instructor
         </tbody>
     </table>
 
-    {{ $instructores->links() }}
+
 </div>
 @endsection

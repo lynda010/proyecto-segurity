@@ -2,90 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\instructor;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $instructores = instructor::all();
-        return view('instructor.index', compact('instructor'));
+        $instructores = Instructor::all();
+        return view('instructor.index', compact('instructores'));
     }
 
-
-    
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('instructor.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'documento' => 'required|string|max:20|unique:instructor,documento',
+            'documento' => 'required|string|max:20|unique:instructores,documento',
             'telefono' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255|unique:instructor,email',
+            'email' => 'nullable|email|max:255|unique:instructores,email',
             'especialidad' => 'nullable|string|max:255',
         ]);
 
-        instructor::create($request->all());
+        Instructor::create($request->all());
 
-        return redirect()->route('instructores.index')->with('success', 'Instructor creado exitosamente.');
+        return redirect()->route('instructores.index')
+            ->with('success', 'Instructor creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(instructor $instructor)
+    public function show($id)
     {
-        return view('instructor.show',compact('instructor'));
+        $instructor = Instructor::findOrFail($id);
+        return view('instructor.show', compact('instructor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
-        $instructor = instructor::findOrFail($id);
+        $instructor = Instructor::findOrFail($id);
         return view('instructor.edit', compact('instructor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, instructor $instructor)
+    public function update(Request $request, $id)
     {
+        $instructor = Instructor::findOrFail($id);
+
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'documento' => 'required|string|max:20|unique:instructor,documento,'.$instructor->id,
+            'documento' => 'required|string|max:20|unique:instructores,documento,' . $id,
             'telefono' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255|unique:instructor,email,'.$instructor->id,
+            'email' => 'nullable|email|max:255|unique:instructores,email,' . $id,
             'especialidad' => 'nullable|string|max:255',
         ]);
 
         $instructor->update($request->all());
 
-        return redirect()->route('instructores.index')->with('success', 'Instructor actualizado exitosamente.');
+        return redirect()->route('instructores.index')
+            ->with('success', 'Instructor actualizado exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(instructor $instructor)
+    public function destroy($id)
     {
-        
+        $instructor = Instructor::findOrFail($id);
+        $instructor->delete();
+
+        return redirect()->route('instructores.index')
+            ->with('success', 'Instructor eliminado exitosamente.');
     }
 }

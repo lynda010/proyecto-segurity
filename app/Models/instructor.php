@@ -3,14 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class instructor extends Model
+class Instructor extends Model
 {
-    protected $table = 'instructor';
-    protected $fillable = ['nombre', 'apellido', 'documento', 'telefono', 'email', 'especialidad'];
+    use HasFactory;
+
+    protected $table = 'instructores'; // 👈 plural
+
+    protected $fillable = [
+        'nombre',
+        'apellido',
+        'documento',
+        'telefono',
+        'email',
+        'especialidad',
+    ];
 
     public function cursos()
     {
-        return $this->hasMany(curso::class, 'instructor_id');
+        return $this->hasMany(Curso::class, 'instructor_id');
     }
 }
